@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {CoursesService} from './courses.service';
-import {AuthorsService} from '../authors/authors.service';
+import { CoursesService } from './courses.service';
+import { AuthorsService } from '../authors/authors.service';
 
 @Component({
   selector: 'app-courses',
@@ -10,15 +10,23 @@ import {AuthorsService} from '../authors/authors.service';
 export class CoursesComponent implements OnInit {
   private _title = 'List of Courses';
   public courses = [];
-  public authors = [];
+  public currentCourse = {
+      name: '',
+      authorID: 0,
+      status: '',
+      isActive: false,
+      author: null,
+  };
+  private _authors = [];
   constructor(cousesService: CoursesService, authorsService: AuthorsService) {
     // const service = new CoursesService();
     this.courses = cousesService.getCourses();
     this.courses.map(function(item) {
-      // each item here
-      item.author = authorsService.getAuthor(item.authorID);
-      item.isActive = item.status === 'Open' ?  true : false;
+        // noinspection JSAnnotator
+        item.author = authorsService.getAuthor(item.authorID);
+        item.isActive = item.status === 'Open' ?  true : false;
     });
+    this._authors = authorsService.getAuthors();
   }
 
   ngOnInit() {}
@@ -28,9 +36,21 @@ export class CoursesComponent implements OnInit {
   set title(val) {
     this._title = val;
   }
+  get author() {
+      return this._authors;
+  }
   onAdd(course, event) {
     console.log('this button click', course);
     console.log('kind of event', event);
     event.stopPropagation();
+  }
+  onAddCourse() {
+      console.log('this add button click', this.currentCourse);
+      const authorService = new AuthorsService();
+      let author = authorService.getAuthor(this.currentCourse.authorID);
+      console.log('the author is ', author);
+      this.currentCourse.author = author;
+      this.courses.push(this.currentCourse);
+      event.stopPropagation();
   }
 }

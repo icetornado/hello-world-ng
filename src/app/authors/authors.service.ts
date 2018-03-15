@@ -27,7 +27,7 @@ export class AuthorsService {
     if (author.length > 0) {
       return author[0];
     } else {
-      return false;
+      return null;
     }
   }
 }
