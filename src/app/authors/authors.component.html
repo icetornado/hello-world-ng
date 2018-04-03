@@ -1,3 +1,16 @@
-<p>
-  authors works!
-</p>
+<div [hidden]="authors.length > 0">
+    No author yet!
+</div>
+<h2>Author list <span class="btn btn-info float-right" routerLink="/author"><a >Add new author</a></span></h2>
+
+<ul class="list-group">
+    <li
+        class="list-group-item list-group-item-action"
+        [ngClass] = "{
+        'list-group-item-light': isEven,
+        'list-group-item-secondary': !isEven
+      }"
+        *ngFor="let a of authors; even as isEven">
+        <a routerLink="/author/{{a.id}}">{{a.name}}</a>&nbsp;
+    </li>
+</ul>

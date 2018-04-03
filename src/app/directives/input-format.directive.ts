@@ -11,12 +11,13 @@ export class InputFormatDirective {
     }
     @HostListener('blur') onBlur() {
         console.log('on blur');
-        let value: string = this.el.nativeElement.value;
+        const value: string = this.el.nativeElement.value;
         switch (this.format) {
             case 'uppercase':
                 this.el.nativeElement.value = value.toUpperCase();
                 break;
             default:
+                this.el.nativeElement.value = value;
                 break;
         }
     }

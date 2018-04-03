@@ -24,7 +24,7 @@ export class CoursesComponent implements OnInit {
     this.courses.map(function(item) {
         // noinspection JSAnnotator
         item.author = authorsService.getAuthor(item.authorID);
-        item.isActive = item.status === 'Open' ?  true : false;
+        // item.isActive = item.status === 'Open' ?  true : false;
     });
     this._authors = authorsService.getAuthors();
   }

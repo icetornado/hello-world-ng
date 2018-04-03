@@ -1,0 +1,24 @@
+<h2>Author Form</h2>
+<form [formGroup]="authorForm" (ngSubmit)="doSubmit()">
+    <div class="form-group">
+        <label for="authorName">Author Name</label>
+        <input type="text" required
+               formControlName="authorName"
+               name="Name"
+               class="form-control"
+               id="authorName"
+               aria-describedby="authorNameHelp"
+               placeholder="Author Name"
+        >
+        <small id="authorNameHelp" class="form-text text-muted">Each  must have a name.</small>
+        <div class="alert alert-info" *ngIf="authorName.touched && authorName.pending">Checking uniqueness...</div>
+        <div class="alert alert-danger" *ngIf="authorName.touched && authorName.invalid">
+            <div *ngIf="authorName.errors.required">Name Required.</div>
+            <div *ngIf="authorName.errors.minlength">Minimum is 3</div>
+            <div *ngIf="authorName.errors.cannotContainNumber">Should not contain number(s)</div>
+            <div *ngIf="authorName.errors.shouldBeUnique">Duplicated name</div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="authorForm.invalid">Add </button>
+
+</form>
